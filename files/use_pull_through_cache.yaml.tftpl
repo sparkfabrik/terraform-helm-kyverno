@@ -1,0 +1,59 @@
+# The policy is based on the following policy:
+# https://github.com/kyverno/policies/tree/main/other/replace-image-registry-with-harbor
+
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: replace-${registry_title}-with-ecr-pull-through-cache
+  annotations:
+    policies.kyverno.io/title: Replace ${registry_title} image registry using ECR pull through cache
+    policies.kyverno.io/category: Image management
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      To avoid rate limiting and improve performance, replace ${registry_title} image registry with ECR pull through cache.
+spec:
+  webhookConfiguration:
+    failurePolicy: Ignore
+    timeoutSeconds: 30
+  rules:
+    - name: replace-${registry_title}-with-ecr-pull-through-cache
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              operations:
+                - CREATE
+                - UPDATE
+      mutate:
+        foreach:
+          - list: request.object.spec.initContainers[]
+            context:
+              - name: imageData
+                imageRegistry:
+                  reference: "{{ element.image }}"
+            preconditions:
+              any:
+                - key: "{{imageData.registry}}"
+                  operator: Equals
+                  value: ${registry}
+            patchStrategicMerge:
+              spec:
+                initContainers:
+                  - name: "{{ element.name }}"
+                    image: ${pull_through_cache}/{{imageData.repository}}:{{imageData.identifier}}
+          - list: request.object.spec.containers[]
+            context:
+              - name: imageData
+                imageRegistry:
+                  reference: "{{ element.image }}"
+            preconditions:
+              any:
+                - key: "{{imageData.registry}}"
+                  operator: Equals
+                  value: ${registry}
+            patchStrategicMerge:
+              spec:
+                containers:
+                  - name: "{{ element.name }}"
+                    image: ${pull_through_cache}/{{imageData.repository}}:{{imageData.identifier}}
