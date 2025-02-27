@@ -1,22 +1,33 @@
 variable "create_namespace" {
-  description = "Create namespace for the ingress controller. If false, the namespace must be created before using this module."
+  description = "Create namespace for Kyverno. If false, the namespace must be created before using this module."
   type        = bool
   default     = true
 }
 
 variable "namespace" {
-  description = "Namespace of the ingress controller."
+  description = "Namespace of Kyverno."
   type        = string
 }
 
-variable "namespace_additional_labels" {
-  description = "Additional labels for the namespace of the ingress controller."
+variable "k8s_default_labels" {
+  description = "Labels to apply to the kubernetes resources. These are opinionated labels, you can add more labels using the variable `additional_k8s_labels`. If you want to remove a label, you can override it with an empty map(string)."
+  type        = map(string)
+  default = {
+    managed-by = "terraform"
+    scope      = "kyverno"
+  }
+}
+
+variable "k8s_additional_labels" {
+  description = "Additional labels to apply to the kubernetes resources."
   type        = map(string)
   default     = {}
 }
 
 variable "chart_version" {
-  type = string
+  type        = string
+  default     = "3.3.7"
+  description = "The version of the Kyverno chart to install"
 }
 
 variable "excluded_namespaces" {

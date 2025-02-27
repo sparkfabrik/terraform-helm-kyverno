@@ -1,3 +1,11 @@
+locals {
+  k8s_common_labels = merge(
+    var.k8s_default_labels,
+    var.k8s_additional_labels,
+  )
+}
+
+
 
 resource "kubernetes_namespace_v1" "this" {
   count = var.create_namespace ? 1 : 0
@@ -7,7 +15,7 @@ resource "kubernetes_namespace_v1" "this" {
       {
         name = var.namespace
       },
-      var.namespace_additional_labels
+      local.k8s_common_labels
     )
     name = var.namespace
   }

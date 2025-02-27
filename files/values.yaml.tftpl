@@ -26,14 +26,14 @@ config:
             %{~ for ns in excluded_namespaces ~}
             - ${ns}
             %{~ endfor ~}
-            %{ if is_aws }
+            %{~ if is_aws ~}
             # Aws system namespaces
             - amazon-cloudwatch
             - aws-system
-            %{ endif }
-            %{ if is_gcp }
+            %{~ endif ~}
+            %{~ if is_gcp ~}
             # Gcp system namespaces
             - gpm-system
             - gpm-public
-            %{ endif }
+            %{~ endif ~}
   
