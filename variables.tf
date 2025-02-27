@@ -34,7 +34,6 @@ variable "excluded_namespaces" {
   type        = list(string)
   description = "The list of namespaces to exclude from the Kyverno policies."
   default     = []
-
 }
 
 variable "is_aws" {
