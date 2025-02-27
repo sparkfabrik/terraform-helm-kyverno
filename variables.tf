@@ -33,7 +33,7 @@ variable "is_aws" {
 }
 
 variable "is_gcp" {
-  description = "Whether the cluster is on GCP or not"
+  description = "Whether the cluster is on GCP or not. If true, the well known GCP GKE namespaces will be added to the excluded namespaces."
   type        = bool
   default     = false
 }
