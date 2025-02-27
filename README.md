@@ -32,6 +32,7 @@ Additional policies will be implemented in future releases.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_admission_controller_replicas"></a> [admission\_controller\_replicas](#input\_admission\_controller\_replicas) | The number of replicas for the Kyverno admission controller. | `number` | `3` | no |
+| <a name="input_admission_controller_sa"></a> [admission\_controller\_sa](#input\_admission\_controller\_sa) | The service account for the Kyverno admission controller. | `string` | `""` | no |
 | <a name="input_backgroundcontroller_replicas"></a> [backgroundcontroller\_replicas](#input\_backgroundcontroller\_replicas) | The number of replicas for the Kyverno background controller. | `number` | `3` | no |
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | The version of the Kyverno chart to install. | `string` | `"3.3.7"` | no |
 | <a name="input_cleanupcontroller_replicas"></a> [cleanupcontroller\_replicas](#input\_cleanupcontroller\_replicas) | The number of replicas for the Kyverno cleanup controller. | `number` | `2` | no |

@@ -36,4 +36,8 @@ config:
             - gpm-system
             - gpm-public
             %{~ endif ~}
-  
+%{~ if admissioncontroller_sa ~}  
+admissionController:
+  rbac:
+    serviceAccount: ${admissioncontroller_sa}
+%{~ endif ~}
