@@ -1,0 +1,39 @@
+# https://github.com/kyverno/kyverno/blob/kyverno-chart-3.3.4/charts/kyverno/values.yaml
+
+# Configuration for HA deployment of Kyverno
+# https://kyverno.io/docs/installation/methods/#high-availability-installation
+admissionController:
+  replicas: ${admissioncontroller_replicas}
+backgroundController:
+  replicas: ${backgroundcontroller_replicas}
+cleanupController:
+  replicas: ${cleanupcontroller_replicas}
+reportsController:
+  replicas: ${reportscontroller_replicas}
+
+config:
+  webhooks:
+    # Exclude namespaces
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values:
+            - kube-node-lease
+            - kube-public
+            - kube-system
+            # Excluded namespaces
+            %{~ for ns in excluded_namespaces ~}
+            - ${ns}
+            %{~ endfor ~}
+            %{~ if is_aws ~}
+            # Aws system namespaces
+            - amazon-cloudwatch
+            - aws-system
+            %{~ endif ~}
+            %{~ if is_gcp ~}
+            # Gcp system namespaces
+            - gpm-system
+            - gpm-public
+            %{~ endif ~}
+  

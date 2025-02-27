@@ -1,0 +1,63 @@
+# The policy is based on the following policy:
+# https://github.com/kyverno/policies/tree/main/other/replace-image-registry-with-harbor
+
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: replace-${registry_title}
+  annotations:
+    policies.kyverno.io/title: Replace ${registry_title} image registry 
+    policies.kyverno.io/category: Image management
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      ${policy_description}
+  labels:
+    %{~ for key, value in labels ~}
+    ${key}: ${value} 
+    %{~ endfor ~}
+spec:
+  webhookConfiguration:
+    failurePolicy: Ignore
+    timeoutSeconds: 30
+  rules:
+    - name: replace-${registry_title}
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              operations:
+                - CREATE
+                - UPDATE
+      mutate:
+        foreach:
+          - list: request.object.spec.initContainers[]
+            context:
+              - name: imageData
+                imageRegistry:
+                  reference: "{{ element.image }}"
+            preconditions:
+              any:
+                - key: "{{imageData.registry}}"
+                  operator: Equals
+                  value: ${registry}
+            patchStrategicMerge:
+              spec:
+                initContainers:
+                  - name: "{{ element.name }}"
+                    image: ${registry_mirror}/{{imageData.repository}}:{{imageData.identifier}}
+          - list: request.object.spec.containers[]
+            context:
+              - name: imageData
+                imageRegistry:
+                  reference: "{{ element.image }}"
+            preconditions:
+              any:
+                - key: "{{imageData.registry}}"
+                  operator: Equals
+                  value: ${registry}
+            patchStrategicMerge:
+              spec:
+                containers:
+                  - name: "{{ element.name }}"
+                    image: ${registry_mirror}/{{imageData.repository}}:{{imageData.identifier}}
