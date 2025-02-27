@@ -4,19 +4,19 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: replace-${registry_title}-with-ecr-pull-through-cache
+  name: replace-${registry_title}
   annotations:
-    policies.kyverno.io/title: Replace ${registry_title} image registry using ECR pull through cache
+    policies.kyverno.io/title: Replace ${registry_title} image registry 
     policies.kyverno.io/category: Image management
     policies.kyverno.io/subject: Pod
     policies.kyverno.io/description: >-
-      To avoid rate limiting and improve performance, replace ${registry_title} image registry with ECR pull through cache.
+      ${policy_description}
 spec:
   webhookConfiguration:
     failurePolicy: Ignore
     timeoutSeconds: 30
   rules:
-    - name: replace-${registry_title}-with-ecr-pull-through-cache
+    - name: replace-${registry_title}
       match:
         any:
           - resources:
@@ -41,7 +41,7 @@ spec:
               spec:
                 initContainers:
                   - name: "{{ element.name }}"
-                    image: ${pull_through_cache}/{{imageData.repository}}:{{imageData.identifier}}
+                    image: ${registry_mirror}/{{imageData.repository}}:{{imageData.identifier}}
           - list: request.object.spec.containers[]
             context:
               - name: imageData
@@ -56,4 +56,4 @@ spec:
               spec:
                 containers:
                   - name: "{{ element.name }}"
-                    image: ${pull_through_cache}/{{imageData.repository}}:{{imageData.identifier}}
+                    image: ${registry_mirror}/{{imageData.repository}}:{{imageData.identifier}}

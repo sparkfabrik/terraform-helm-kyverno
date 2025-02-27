@@ -3,13 +3,13 @@
 # Configuration for HA deployment of Kyverno
 # https://kyverno.io/docs/installation/methods/#high-availability-installation
 admissionController:
-  replicas: 3
+  replicas: ${admissioncontroller_replicas}
 backgroundController:
-  replicas: 2
+  replicas: ${backgroundcontroller_replicas}
 cleanupController:
-  replicas: 2
+  replicas: ${cleanupcontroller_replicas}
 reportsController:
-  replicas: 2
+  replicas: ${reportscontroller_replicas}
 
 config:
   webhooks:
@@ -22,7 +22,18 @@ config:
             - kube-node-lease
             - kube-public
             - kube-system
-            # Excliuded namespaces
+            # Excluded namespaces
             %{~ for ns in excluded_namespaces ~}
             - ${ns}
             %{~ endfor ~}
+            %{ if is_aws }
+            #Aws system namespaces
+            - amazon-cloudwatch
+            - aws-system
+            %{ endif }
+            %{ if is_gcp }
+            #Gcp system namespaces
+            - gpm-system
+            - gpm-public
+            %{ endif }
+  
