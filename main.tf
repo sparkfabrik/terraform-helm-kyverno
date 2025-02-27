@@ -55,7 +55,8 @@ resource "kubectl_manifest" "use_dockerhub_mirror" {
     registry           = "index.docker.io",
     registry_title     = "index-docker-io",
     registry_mirror    = var.policy_docker_hub_mirror.destination_registry,
-    policy_description = "To avoid rate limiting and improve performance, replace index-docker-io image registry with a mirror registry."
+    policy_description = "To avoid rate limiting and improve performance, replace index-docker-io image registry with a mirror registry.",
+    labels             = local.k8s_common_labels
   })
 
   depends_on = [helm_release.kyverno]
@@ -70,6 +71,7 @@ resource "kubectl_manifest" "custom_registry_policies" {
     registry_title     = each.value["registry_title"],
     registry_mirror    = each.value["registry_remote_mirror"],
     policy_description = each.value["description"],
+    labels             = local.k8s_common_labels
   })
 
   depends_on = [helm_release.kyverno]
