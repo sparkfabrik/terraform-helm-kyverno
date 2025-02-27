@@ -65,13 +65,13 @@ variable "reportscontroller_replicas" {
 variable "policy_docker_hub_mirror" {
   type = object({
     enabled              = optional(bool, false)
-    destination_registry = optional(string)
+    destination_registry = optional(string, "")
   })
   default = {
     enabled              = false
-    destination_registry = "noregistry"
+    destination_registry = ""
   }
-  description = "Values for the mutating Kyverno policy to redirect the DockerHub registry to a mirror/cache registry. Needs only the destination registry url."
+  description = "Values for the mutating Kyverno policy to redirect the DockerHub registry to a mirror/cache registry. Needs only the destination registry url (e.g.: `my.awesome-cache-registry.com`)."
 }
 
 variable "custom_registry_policies" {
