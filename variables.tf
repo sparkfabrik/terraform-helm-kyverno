@@ -28,7 +28,7 @@ variable "pull_through_caches" {
     pull_through_cache = string
   }))
   description = "The ECR pull-through configuration for the mutating Kyverno policy. Use the registry URL as the key (e.g. 'index.docker.io'), registry_title as the name used to create the title in the policy, and pull_through_cache as the ECR pull-through cache URL."
-
+  default     = {}
   validation {
     condition = alltrue([
       for key, value in var.pull_through_caches : can(regex("^[a-zA-Z0-9-]+$", value.registry_title))
@@ -42,7 +42,8 @@ variable "artifact_registry_remote_mirrors" {
     registry_title                  = string
     artifact_registry_remote_mirror = string
   }))
-  description = "The Artifact registru remote mirror configuration for the mutating Kyverno policy. Use the registry URL as the key (e.g. 'index.docker.io'), registry_title as the name used to create the title in the policy, and artifact_registry_remote_mirror  the Artifact registry remote mirror URL."
+  description = "The Artifact registry remote mirror configuration for the mutating Kyverno policy. Use the registry URL as the key (e.g. 'index.docker.io'), registry_title as the name used to create the title in the policy, and artifact_registry_remote_mirror  the Artifact registry remote mirror URL."
+  default     = {}
 
   validation {
     condition = alltrue([

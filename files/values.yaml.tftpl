@@ -22,7 +22,7 @@ config:
             - kube-node-lease
             - kube-public
             - kube-system
-            # AWS system namespaces
+            # Excliuded namespaces
             %{~ for ns in excluded_namespaces ~}
             - ${ns}
             %{~ endfor ~}

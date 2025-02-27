@@ -4,7 +4,7 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: replace-${registry_title}-with-artifact_registry_remote_mirror
+  name: replace-${registry_title}-with-artifact-registry-remote-mirror
   annotations:
     policies.kyverno.io/title: Replace ${registry_title} image registry using Artifact Registry Remote mirror
     policies.kyverno.io/category: Image management
@@ -16,7 +16,7 @@ spec:
     failurePolicy: Ignore
     timeoutSeconds: 30
   rules:
-    - name: replace-${registry_title}-with-artifact_registry_remote
+    - name: replace-${registry_title}-with-artifact-registry-remote
       match:
         any:
           - resources:
@@ -41,7 +41,7 @@ spec:
               spec:
                 initContainers:
                   - name: "{{ element.name }}"
-                    image: ${pull_through_cache}/{{imageData.repository}}:{{imageData.identifier}}
+                    image: ${artifact_registry_remote_mirror}/{{imageData.repository}}:{{imageData.identifier}}
           - list: request.object.spec.containers[]
             context:
               - name: imageData
@@ -56,4 +56,4 @@ spec:
               spec:
                 containers:
                   - name: "{{ element.name }}"
-                    image: ${pull_through_cache}/{{imageData.repository}}:{{imageData.identifier}}
+                    image: ${artifact_registry_remote_mirror}/{{imageData.repository}}:{{imageData.identifier}}
