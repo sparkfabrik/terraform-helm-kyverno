@@ -80,7 +80,7 @@ variable "custom_registry_policies" {
     registry_remote_mirror = string
     description            = string
   }))
-  description = "Custom configuration for the mutating Kyverno policy. Use the registry URL as the key (e.g. 'index.docker.io'), registry_title as the name used to create the title in the policy, and registry_remote_mirror  the registry remote mirror URL."
+  description = "Custom configuration for the mutating Kyverno policy. Use the registry URL as the key (e.g.: 'index.docker.io'), `registry_title` as the name used to create the title in the policy, and `registry_remote_mirror` as the registry remote mirror URL (e.g.: `my.awesome-private-registry.com/my-awesome-namespace`)."
   default     = {}
 
   validation {
