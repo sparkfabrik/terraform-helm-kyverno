@@ -27,7 +27,7 @@ variable "excluded_namespaces" {
 }
 
 variable "is_aws" {
-  description = "Whether the cluster is on AWS or not"
+  description = "Whether the cluster is on AWS or not. If true, the well known AWS EKS namespaces will be added to the excluded namespaces."
   type        = bool
   default     = false
 }
