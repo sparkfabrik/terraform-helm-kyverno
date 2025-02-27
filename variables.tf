@@ -27,12 +27,12 @@ variable "k8s_additional_labels" {
 variable "chart_version" {
   type        = string
   default     = "3.3.7"
-  description = "The version of the Kyverno chart to install"
+  description = "The version of the Kyverno chart to install."
 }
 
 variable "excluded_namespaces" {
   type        = list(string)
-  description = "The list of namespaces to exclude from the Kyverno policies"
+  description = "The list of namespaces to exclude from the Kyverno policies."
   default     = []
 
 }
@@ -50,25 +50,25 @@ variable "is_gcp" {
 }
 
 variable "admission_controller_replicas" {
-  description = "The number of replicas for the Kyverno admission controller"
+  description = "The number of replicas for the Kyverno admission controller."
   type        = number
   default     = 3
 }
 
 variable "backgroundcontroller_replicas" {
-  description = "The number of replicas for the Kyverno background controller"
+  description = "The number of replicas for the Kyverno background controller."
   type        = number
   default     = 3
 }
 
 variable "cleanupcontroller_replicas" {
-  description = "The number of replicas for the Kyverno cleanup controller"
+  description = "The number of replicas for the Kyverno cleanup controller."
   type        = number
   default     = 2
 }
 
 variable "reportscontroller_replicas" {
-  description = "The number of replicas for the Kyverno reports controller"
+  description = "The number of replicas for the Kyverno reports controller."
   type        = number
   default     = 2
 }
