@@ -63,7 +63,7 @@ resource "kubectl_manifest" "custom_registry_policies" {
   yaml_body = templatefile("${path.module}/files/replace_registry_url.yaml.tftpl", {
     registry           = each.key,
     registry_title     = each.value["registry_title"],
-    registry_mirror    = each.value["artifact_registry_remote_mirror"],
+    registry_mirror    = each.value["registry_remote_mirror"],
     policy_description = each.value["description"],
   })
 

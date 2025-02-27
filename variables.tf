@@ -40,25 +40,25 @@ variable "is_gcp" {
 
 variable "admission_controller_replicas" {
   description = "The number of replicas for the Kyverno admission controller"
-  type        = string
+  type        = number
   default     = 3
 }
 
 variable "backgroundcontroller_replicas" {
   description = "The number of replicas for the Kyverno background controller"
-  type        = string
+  type        = number
   default     = 3
 }
 
 variable "cleanupcontroller_replicas" {
   description = "The number of replicas for the Kyverno cleanup controller"
-  type        = string
+  type        = number
   default     = 2
 }
 
 variable "reportscontroller_replicas" {
   description = "The number of replicas for the Kyverno reports controller"
-  type        = string
+  type        = number
   default     = 2
 }
 
