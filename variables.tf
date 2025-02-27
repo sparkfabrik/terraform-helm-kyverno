@@ -10,7 +10,7 @@ variable "namespace" {
 }
 
 variable "k8s_default_labels" {
-  description = "Labels to apply to the kubernetes resources. These are opinionated labels, you can add more labels using the variable `additional_k8s_labels`. If you want to remove a label, you can override it with an empty map(string)."
+  description = "Labels to apply to the kubernetes resources. These are opinionated labels, you can add more labels using the variable `k8s_additional_labels`. If you want to remove a label, you can override it with an empty map(string)."
   type        = map(string)
   default = {
     managed-by = "terraform"
