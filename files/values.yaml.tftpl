@@ -27,7 +27,7 @@ config:
             - ${ns}
             %{~ endfor ~}
             %{ if is_aws }
-            #Aws system namespaces
+            # Aws system namespaces
             - amazon-cloudwatch
             - aws-system
             %{ endif }
