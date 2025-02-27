@@ -40,8 +40,6 @@ resource "helm_release" "kyverno" {
     })
   ]
 }
-
-
 # Policy to redirect the DockerHub registry to a mirror/cache registry.
 resource "kubectl_manifest" "use_dockerhub_mirror" {
   count = var.policy_docker_hub_mirror == {} ? 0 : (var.policy_docker_hub_mirror.enabled ? 1 : 0)
