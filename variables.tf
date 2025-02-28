@@ -75,7 +75,26 @@ variable "reportscontroller_replicas" {
 variable "admissioncontroller_sa" {
   description = "The service account for the Kyverno admission controller."
   type        = string
-  default     = ""
+  default     = "kyverno-admission-controller"
+}
+
+variable "backgroundcontroller_sa" {
+  description = "The service account for the Kyverno background controller."
+  type        = string
+  default     = "kyverno-background-controller"
+
+}
+
+variable "cleanupcontroller_sa" {
+  description = "The service account for the Kyverno cleanup controller."
+  type        = string
+  default     = "kyverno-cleanup-controller"
+}
+
+variable "reportscontroller_sa" {
+  description = "The service account for the Kyverno reports controller."
+  type        = string
+  default     = "kyverno-reports-controller"
 }
 
 variable "policy_docker_hub_mirror" {
