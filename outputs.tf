@@ -16,6 +16,5 @@ output "reportscontroller_sa" {
 
 output "dockerhub_mirror_registry" {
   value = var.policy_docker_hub_mirror.destination_registry
-
 }
 
