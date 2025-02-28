@@ -36,8 +36,20 @@ config:
             - gpm-system
             - gpm-public
             %{~ endif ~}
-%{~ if admissioncontroller_sa !="" ~}  
+
 admissionController:
   rbac:
-    serviceAccount: ${admissioncontroller_sa}
-%{~ endif ~}
+    serviceAccount: 
+      name: ${admissioncontroller_sa}
+backgroundController:
+  rbac:
+    serviceAccount: 
+      name: ${backgroundcontroller_sa}
+cleanupController:
+  rbac:
+    serviceAccount: 
+      name: ${cleanupcontroller_sa} 
+reportsController:
+  rbac:
+    serviceAccount: 
+      name: ${reportscontroller_sa}

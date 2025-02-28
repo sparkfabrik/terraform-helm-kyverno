@@ -44,6 +44,9 @@ resource "helm_release" "kyverno" {
       cleanupcontroller_replicas    = var.cleanupcontroller_replicas
       reportscontroller_replicas    = var.reportscontroller_replicas
       admissioncontroller_sa        = var.admissioncontroller_sa
+      backgroundcontroller_sa       = var.backgroundcontroller_sa
+      cleanupcontroller_sa          = var.cleanupcontroller_sa
+      reportscontroller_sa          = var.reportscontroller_sa
     })
   ]
 }
