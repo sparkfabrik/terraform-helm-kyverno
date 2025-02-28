@@ -72,7 +72,7 @@ variable "reportscontroller_replicas" {
   default     = 2
 }
 
-variable "admission_controller_sa" {
+variable "admissioncontroller_sa" {
   description = "The service account for the Kyverno admission controller."
   type        = string
   default     = ""
