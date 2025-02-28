@@ -24,10 +24,22 @@ variable "k8s_additional_labels" {
   default     = {}
 }
 
-variable "chart_version" {
+variable "helm_release_name" {
+  description = "The name of the Helm release."
+  type        = string
+  default     = "kyverno"
+}
+
+variable "helm_chart_version" {
+  description = "The version of kyverno Helm chart."
   type        = string
   default     = "3.3.7"
-  description = "The version of the Kyverno chart to install."
+}
+
+variable "helm_additional_values" {
+  description = "Additional values to be passed to the Helm chart."
+  type        = list(string)
+  default     = []
 }
 
 variable "excluded_namespaces" {
