@@ -72,6 +72,12 @@ variable "reportscontroller_replicas" {
   default     = 2
 }
 
+variable "admissioncontroller_sa" {
+  description = "The service account for the Kyverno admission controller."
+  type        = string
+  default     = ""
+}
+
 variable "policy_docker_hub_mirror" {
   type = object({
     enabled              = optional(bool, false)
