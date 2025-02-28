@@ -28,27 +28,30 @@ data "kubernetes_namespace_v1" "this" {
 }
 
 resource "helm_release" "kyverno" {
-  name       = "kyverno"
+  name       = var.helm_release_name
   repository = "https://kyverno.github.io/kyverno/"
   chart      = "kyverno"
   namespace  = var.create_namespace ? kubernetes_namespace_v1.this[0].metadata[0].name : data.kubernetes_namespace_v1.this[0].metadata[0].name
-  version    = var.chart_version
+  version    = var.helm_chart_version
 
-  values = [
-    templatefile("${path.module}/files/values.yaml.tftpl", {
-      is_aws                        = var.is_aws
-      is_gcp                        = var.is_gcp
-      excluded_namespaces           = var.excluded_namespaces
-      admissioncontroller_replicas  = var.admission_controller_replicas
-      backgroundcontroller_replicas = var.backgroundcontroller_replicas
-      cleanupcontroller_replicas    = var.cleanupcontroller_replicas
-      reportscontroller_replicas    = var.reportscontroller_replicas
-      admissioncontroller_sa        = var.admissioncontroller_sa
-      backgroundcontroller_sa       = var.backgroundcontroller_sa
-      cleanupcontroller_sa          = var.cleanupcontroller_sa
-      reportscontroller_sa          = var.reportscontroller_sa
-    })
-  ]
+  values = concat(
+    [
+      templatefile("${path.module}/files/values.yaml.tftpl", {
+        is_aws                        = var.is_aws
+        is_gcp                        = var.is_gcp
+        excluded_namespaces           = var.excluded_namespaces
+        admissioncontroller_replicas  = var.admission_controller_replicas
+        backgroundcontroller_replicas = var.backgroundcontroller_replicas
+        cleanupcontroller_replicas    = var.cleanupcontroller_replicas
+        reportscontroller_replicas    = var.reportscontroller_replicas
+        admissioncontroller_sa        = var.admissioncontroller_sa
+        backgroundcontroller_sa       = var.backgroundcontroller_sa
+        cleanupcontroller_sa          = var.cleanupcontroller_sa
+        reportscontroller_sa          = var.reportscontroller_sa
+      })
+    ],
+    var.helm_additional_values
+  )
 }
 
 # Policy to redirect the DockerHub registry to a mirror/cache registry.

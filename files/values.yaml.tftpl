@@ -4,12 +4,24 @@
 # https://kyverno.io/docs/installation/methods/#high-availability-installation
 admissionController:
   replicas: ${admissioncontroller_replicas}
+  rbac:
+    serviceAccount:
+      name: ${admissioncontroller_sa}
 backgroundController:
   replicas: ${backgroundcontroller_replicas}
+  rbac:
+    serviceAccount: 
+      name: ${backgroundcontroller_sa}
 cleanupController:
   replicas: ${cleanupcontroller_replicas}
+  rbac:
+    serviceAccount:
+      name: ${cleanupcontroller_sa}
 reportsController:
   replicas: ${reportscontroller_replicas}
+  rbac:
+    serviceAccount: 
+      name: ${reportscontroller_sa}
 
 config:
   webhooks:
@@ -36,20 +48,3 @@ config:
             - gpm-system
             - gpm-public
             %{~ endif ~}
-
-admissionController:
-  rbac:
-    serviceAccount: 
-      name: ${admissioncontroller_sa}
-backgroundController:
-  rbac:
-    serviceAccount: 
-      name: ${backgroundcontroller_sa}
-cleanupController:
-  rbac:
-    serviceAccount: 
-      name: ${cleanupcontroller_sa} 
-reportsController:
-  rbac:
-    serviceAccount: 
-      name: ${reportscontroller_sa}
