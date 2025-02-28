@@ -2,7 +2,6 @@
 
 This Terraform module deploys and manages Kyverno, a Kubernetes native policy management tool, using Helm. It provides customizable options for configuring Kyverno components, such as the admission controller, background controller, and cleanup controller. Additionally, it allows for namespace creation and labeling, ensuring seamless integration with existing Kubernetes clusters.  
 
-
 The module supports a set of basic policies:  
 
 - redirecting from Docker Hub to a mirror/cache for image pulls.
