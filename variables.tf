@@ -82,7 +82,6 @@ variable "backgroundcontroller_sa" {
   description = "The service account for the Kyverno background controller."
   type        = string
   default     = "kyverno-background-controller"
-
 }
 
 variable "cleanupcontroller_sa" {
