@@ -88,7 +88,7 @@ variable "reportscontroller_node_affinity" {
 }
 
 variable "tolerations" {
-  description = "Tolerations for Kyverno pods"
+  description = "Tolerations for Kyverno pods."
   type = list(object({
     key      = string
     operator = string

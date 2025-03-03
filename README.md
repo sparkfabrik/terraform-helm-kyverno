@@ -60,7 +60,7 @@ Additional policies will be implemented in future releases.
 | <a name="input_reportscontroller_node_affinity"></a> [reportscontroller\_node\_affinity](#input\_reportscontroller\_node\_affinity) | Node affinity settings for reportscontroller pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`. | <pre>map(object({<br/>    key    = string<br/>    values = list(string)<br/>  }))</pre> | `null` | no |
 | <a name="input_reportscontroller_replicas"></a> [reportscontroller\_replicas](#input\_reportscontroller\_replicas) | The number of replicas for the Kyverno reports controller. | `number` | `2` | no |
 | <a name="input_reportscontroller_sa"></a> [reportscontroller\_sa](#input\_reportscontroller\_sa) | The service account for the Kyverno reports controller. | `string` | `"kyverno-reports-controller"` | no |
-| <a name="input_tolerations"></a> [tolerations](#input\_tolerations) | Tolerations for Kyverno pods | <pre>list(object({<br/>    key      = string<br/>    operator = string<br/>    value    = string<br/>    effect   = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_tolerations"></a> [tolerations](#input\_tolerations) | Tolerations for Kyverno pods. | <pre>list(object({<br/>    key      = string<br/>    operator = string<br/>    value    = string<br/>    effect   = string<br/>  }))</pre> | `[]` | no |
 
 ## Outputs
 
