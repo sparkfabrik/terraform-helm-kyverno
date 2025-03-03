@@ -9,11 +9,10 @@ locals {
 }
 
 module "kyverno" {
-  #source = "github.com/sparkfabrik/terraform-helm-kyverno?ref=0.1.0"
-  source                   = "./modules/kyverno"
+  source                   = "github.com/sparkfabrik/terraform-helm-kyverno?ref=0.1.0"
   namespace                = var.namespace
   chart_version            = var.chart_version
-  is_aws                   = "true"
+  is_aws                   = true
   excluded_namespaces      = var.excluded_namespaces
   policy_docker_hub_mirror = local.policy_dockerhub_mirror
 }

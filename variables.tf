@@ -42,13 +42,60 @@ variable "helm_additional_values" {
   default     = []
 }
 
-variable "admissioncontroller_node_affinity" {
+variable "node_affinity" {
   description = "Node affinity settings for Kyverno pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`."
   type = map(object({
     key    = string
     values = list(string)
   }))
   default = null
+}
+
+variable "admissioncontroller_node_affinity" {
+  description = "Node affinity settings for admissioncontroller pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "backgroundcontroller_node_affinity" {
+  description = "Node affinity settings for backgroundcontroller pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "cleanupcontroller_node_affinity" {
+  description = "Node affinity settings for cleanupcontroller pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "reportscontroller_node_affinity" {
+  description = "Node affinity settings for reportscontroller pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "tolerations" {
+  description = "Tolerations for Kyverno pods"
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
 }
 
 variable "excluded_namespaces" {
