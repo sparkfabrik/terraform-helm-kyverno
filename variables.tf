@@ -48,8 +48,8 @@ variable "admissioncontroller_node_affinity" {
     key    = string
     values = list(string)
   }))
+  default = null
 }
-
 
 variable "excluded_namespaces" {
   type        = list(string)
