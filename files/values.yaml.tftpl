@@ -33,6 +33,15 @@ admissionController:
                 %{~ endfor ~}
     %{~ endfor ~}
   %{~ endif ~}
+  tolerations:
+    %{~ if length(admissioncontroller_tolerations) > 0 ~}
+    %{~ for toleration in admissioncontroller_tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+    %{~ endif ~}
 backgroundController:
   replicas: ${backgroundcontroller_replicas}
   rbac:
@@ -53,6 +62,15 @@ backgroundController:
                 %{~ endfor ~}
     %{~ endfor ~}
   %{~ endif ~}
+  tolerations:
+    %{~ if length(backgroundcontroller_tolerations) > 0 ~}
+    %{~ for toleration in backgroundcontroller_tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+    %{~ endif ~}
 cleanupController:
   replicas: ${cleanupcontroller_replicas}
   rbac:
@@ -73,6 +91,15 @@ cleanupController:
                 %{~ endfor ~}
     %{~ endfor ~}
   %{~ endif ~}
+  tolerations:
+    %{~ if length(cleanupcontroller_tolerations) > 0 ~}
+    %{~ for toleration in cleanupcontroller_tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+    %{~ endif ~}
 reportsController:
   replicas: ${reportscontroller_replicas}
   rbac:
@@ -93,6 +120,15 @@ reportsController:
                 %{~ endfor ~}
     %{~ endfor ~}
   %{~ endif ~}
+  tolerations:
+    %{~ if length(reportscontroller_tolerations) > 0 ~}
+    %{~ for toleration in reportscontroller_tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+    %{~ endif ~}
 
 config:
   webhooks:

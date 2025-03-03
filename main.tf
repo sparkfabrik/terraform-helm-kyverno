@@ -54,6 +54,10 @@ resource "helm_release" "kyverno" {
         cleanupcontroller_node_affinity    = var.cleanupcontroller_node_affinity
         reportscontroller_node_affinity    = var.reportscontroller_node_affinity
         tolerations                        = var.tolerations
+        admissioncontroller_tolerations    = var.admissioncontroller_tolerations
+        backgroundcontroller_tolerations   = var.backgroundcontroller_tolerations
+        cleanupcontroller_tolerations      = var.cleanupcontroller_tolerations
+        reportscontroller_tolerations      = var.reportscontroller_tolerations
       })
     ],
     var.helm_additional_values

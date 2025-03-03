@@ -98,6 +98,50 @@ variable "tolerations" {
   default = []
 }
 
+variable "admissioncontroller_tolerations" {
+  description = "Tolerations for admissioncontroller pods."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
+variable "backgroundcontroller_tolerations" {
+  description = "Tolerations for backgroundcontroller pods."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
+variable "cleanupcontroller_tolerations" {
+  description = "Tolerations for cleanupcontroller pods."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
+variable "reportscontroller_tolerations" {
+  description = "Tolerations for reportscontroller pods."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
 variable "excluded_namespaces" {
   type        = list(string)
   description = "The list of namespaces to exclude from the Kyverno policies."
