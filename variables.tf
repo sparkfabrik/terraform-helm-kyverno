@@ -42,6 +42,15 @@ variable "helm_additional_values" {
   default     = []
 }
 
+variable "admissioncontroller_node_affinity" {
+  description = "Node affinity settings for Kyverno pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution` "
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+}
+
+
 variable "excluded_namespaces" {
   type        = list(string)
   description = "The list of namespaces to exclude from the Kyverno policies."

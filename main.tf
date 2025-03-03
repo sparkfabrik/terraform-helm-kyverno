@@ -37,17 +37,18 @@ resource "helm_release" "kyverno" {
   values = concat(
     [
       templatefile("${path.module}/files/values.yaml.tftpl", {
-        is_aws                        = var.is_aws
-        is_gcp                        = var.is_gcp
-        excluded_namespaces           = var.excluded_namespaces
-        admissioncontroller_replicas  = var.admission_controller_replicas
-        backgroundcontroller_replicas = var.backgroundcontroller_replicas
-        cleanupcontroller_replicas    = var.cleanupcontroller_replicas
-        reportscontroller_replicas    = var.reportscontroller_replicas
-        admissioncontroller_sa        = var.admissioncontroller_sa
-        backgroundcontroller_sa       = var.backgroundcontroller_sa
-        cleanupcontroller_sa          = var.cleanupcontroller_sa
-        reportscontroller_sa          = var.reportscontroller_sa
+        is_aws                            = var.is_aws
+        is_gcp                            = var.is_gcp
+        excluded_namespaces               = var.excluded_namespaces
+        admissioncontroller_replicas      = var.admission_controller_replicas
+        backgroundcontroller_replicas     = var.backgroundcontroller_replicas
+        cleanupcontroller_replicas        = var.cleanupcontroller_replicas
+        reportscontroller_replicas        = var.reportscontroller_replicas
+        admissioncontroller_sa            = var.admissioncontroller_sa
+        backgroundcontroller_sa           = var.backgroundcontroller_sa
+        cleanupcontroller_sa              = var.cleanupcontroller_sa
+        reportscontroller_sa              = var.reportscontroller_sa
+        admissioncontroller_node_affinity = var.admissioncontroller_node_affinity
       })
     ],
     var.helm_additional_values

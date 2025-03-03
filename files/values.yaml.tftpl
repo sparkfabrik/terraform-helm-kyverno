@@ -7,6 +7,21 @@ admissionController:
   rbac:
     serviceAccount:
       name: ${admissioncontroller_sa}
+  %{ if admissioncontroller_node_affinity != null ~}
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    %{ for weight, config in admissioncontroller_node_affinity ~}
+      - weight: ${weight}
+        preference:
+          matchExpressions:
+            - key: ${config.key}
+              operator: In
+              values:
+                %{ for value in config.values ~}
+                - "${value}"
+                %{ endfor ~}
+    %{ endfor ~}
+  %{ endif ~}
 backgroundController:
   replicas: ${backgroundcontroller_replicas}
   rbac:
