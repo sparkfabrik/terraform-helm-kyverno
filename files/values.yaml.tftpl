@@ -3,8 +3,8 @@
 # Configuration for HA deployment of Kyverno
 # https://kyverno.io/docs/installation/methods/#high-availability-installation
 global:
+  %{~ if length(tolerations) > 0 ~}
   tolerations:
-    %{~ if length(tolerations) > 0 ~}
     %{~ for toleration in tolerations ~}
     - key: "${toleration.key}"
       operator: "${toleration.operator}"
@@ -33,8 +33,8 @@ admissionController:
                 %{~ endfor ~}
     %{~ endfor ~}
   %{~ endif ~}
+  %{~ if length(admissioncontroller_tolerations) > 0 ~}
   tolerations:
-    %{~ if length(admissioncontroller_tolerations) > 0 ~}
     %{~ for toleration in admissioncontroller_tolerations ~}
     - key: "${toleration.key}"
       operator: "${toleration.operator}"
@@ -62,8 +62,8 @@ backgroundController:
                 %{~ endfor ~}
     %{~ endfor ~}
   %{~ endif ~}
+  %{~ if length(backgroundcontroller_tolerations) > 0 ~}
   tolerations:
-    %{~ if length(backgroundcontroller_tolerations) > 0 ~}
     %{~ for toleration in backgroundcontroller_tolerations ~}
     - key: "${toleration.key}"
       operator: "${toleration.operator}"
@@ -91,8 +91,8 @@ cleanupController:
                 %{~ endfor ~}
     %{~ endfor ~}
   %{~ endif ~}
+  %{~ if length(cleanupcontroller_tolerations) > 0 ~}
   tolerations:
-    %{~ if length(cleanupcontroller_tolerations) > 0 ~}
     %{~ for toleration in cleanupcontroller_tolerations ~}
     - key: "${toleration.key}"
       operator: "${toleration.operator}"
@@ -120,8 +120,8 @@ reportsController:
                 %{~ endfor ~}
     %{~ endfor ~}
   %{~ endif ~}
+  %{~ if length(reportscontroller_tolerations) > 0 ~}
   tolerations:
-    %{~ if length(reportscontroller_tolerations) > 0 ~}
     %{~ for toleration in reportscontroller_tolerations ~}
     - key: "${toleration.key}"
       operator: "${toleration.operator}"

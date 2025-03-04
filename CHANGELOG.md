@@ -8,7 +8,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [0.2.0] - 2025-03-03
+## [0.2.0] - 2025-03-04
 
 - Add nodeAffinity and tolerations
 
