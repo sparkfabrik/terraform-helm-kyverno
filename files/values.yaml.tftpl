@@ -1,7 +1,7 @@
 # https://github.com/kyverno/kyverno/blob/kyverno-chart-3.3.4/charts/kyverno/values.yaml
 
+%{~ if length(tolerations) > 0 ~}
 global:
-  %{~ if length(tolerations) > 0 ~}
   tolerations:
     %{~ for toleration in tolerations ~}
     - key: "${toleration.key}"
@@ -9,7 +9,7 @@ global:
       value: "${toleration.value}"
       effect: "${toleration.effect}"
     %{~ endfor ~}
-  %{~ endif ~}
+%{~ endif ~}
 
 admissionController:
   replicas: ${admissioncontroller_replicas}
