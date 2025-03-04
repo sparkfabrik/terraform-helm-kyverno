@@ -43,7 +43,7 @@ variable "helm_additional_values" {
 }
 
 variable "node_affinity" {
-  description = "Node affinity settings for Kyverno pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`."
+  description = "Node affinity settings for Kyverno pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`. This variable configures the node affinity for the `admissioncontroller`, `backgroundcontroller`, `cleanupcontroller` and `reportscontroller`. If defined, the value of this variable will be completely overwritten by the `*_node_affinity` configuration specific for each component."
   type = map(object({
     key    = string
     values = list(string)
