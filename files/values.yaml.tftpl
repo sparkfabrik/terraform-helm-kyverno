@@ -1,27 +1,132 @@
 # https://github.com/kyverno/kyverno/blob/kyverno-chart-3.3.4/charts/kyverno/values.yaml
 
-# Configuration for HA deployment of Kyverno
-# https://kyverno.io/docs/installation/methods/#high-availability-installation
+global:
+  %{~ if length(tolerations) > 0 ~}
+  tolerations:
+    %{~ for toleration in tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+  %{~ endif ~}
+
 admissionController:
   replicas: ${admissioncontroller_replicas}
   rbac:
     serviceAccount:
       name: ${admissioncontroller_sa}
+  %{~ if admissioncontroller_node_affinity != null || node_affinity != null ~}
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    %{~ for weight, config in coalesce(admissioncontroller_node_affinity, node_affinity) ~}
+      - weight: ${weight}
+        preference:
+          matchExpressions:
+            - key: ${config.key}
+              operator: In
+              values:
+                %{~ for value in config.values ~}
+                - "${value}"
+                %{~ endfor ~}
+    %{~ endfor ~}
+  %{~ endif ~}
+  %{~ if length(admissioncontroller_tolerations) > 0 ~}
+  tolerations:
+    %{~ for toleration in admissioncontroller_tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+  %{~ endif ~}
 backgroundController:
   replicas: ${backgroundcontroller_replicas}
   rbac:
     serviceAccount: 
       name: ${backgroundcontroller_sa}
+  %{~ if backgroundcontroller_node_affinity != null || node_affinity != null ~}
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    %{~ for weight, config in coalesce(backgroundcontroller_node_affinity, node_affinity) ~}
+      - weight: ${weight}
+        preference:
+          matchExpressions:
+            - key: ${config.key}
+              operator: In
+              values:
+                %{~ for value in config.values ~}
+                - "${value}"
+                %{~ endfor ~}
+    %{~ endfor ~}
+  %{~ endif ~}
+  %{~ if length(backgroundcontroller_tolerations) > 0 ~}
+  tolerations:
+    %{~ for toleration in backgroundcontroller_tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+  %{~ endif ~}
 cleanupController:
   replicas: ${cleanupcontroller_replicas}
   rbac:
     serviceAccount:
       name: ${cleanupcontroller_sa}
+  %{~ if cleanupcontroller_node_affinity != null || node_affinity != null ~}
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    %{~ for weight, config in coalesce(cleanupcontroller_node_affinity, node_affinity) ~}
+      - weight: ${weight}
+        preference:
+          matchExpressions:
+            - key: ${config.key}
+              operator: In
+              values:
+                %{~ for value in config.values ~}
+                - "${value}"
+                %{~ endfor ~}
+    %{~ endfor ~}
+  %{~ endif ~}
+  %{~ if length(cleanupcontroller_tolerations) > 0 ~}
+  tolerations:
+    %{~ for toleration in cleanupcontroller_tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+  %{~ endif ~}
 reportsController:
   replicas: ${reportscontroller_replicas}
   rbac:
     serviceAccount: 
       name: ${reportscontroller_sa}
+  %{~ if reportscontroller_node_affinity != null || node_affinity != null ~}
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    %{~ for weight, config in coalesce(reportscontroller_node_affinity, node_affinity) ~}
+      - weight: ${weight}
+        preference:
+          matchExpressions:
+            - key: ${config.key}
+              operator: In
+              values:
+                %{~ for value in config.values ~}
+                - "${value}"
+                %{~ endfor ~}
+    %{~ endfor ~}
+  %{~ endif ~}
+  %{~ if length(reportscontroller_tolerations) > 0 ~}
+  tolerations:
+    %{~ for toleration in reportscontroller_tolerations ~}
+    - key: "${toleration.key}"
+      operator: "${toleration.operator}"
+      value: "${toleration.value}"
+      effect: "${toleration.effect}"
+    %{~ endfor ~}
+  %{~ endif ~}
 
 config:
   webhooks:

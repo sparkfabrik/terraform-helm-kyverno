@@ -37,17 +37,27 @@ resource "helm_release" "kyverno" {
   values = concat(
     [
       templatefile("${path.module}/files/values.yaml.tftpl", {
-        is_aws                        = var.is_aws
-        is_gcp                        = var.is_gcp
-        excluded_namespaces           = var.excluded_namespaces
-        admissioncontroller_replicas  = var.admission_controller_replicas
-        backgroundcontroller_replicas = var.backgroundcontroller_replicas
-        cleanupcontroller_replicas    = var.cleanupcontroller_replicas
-        reportscontroller_replicas    = var.reportscontroller_replicas
-        admissioncontroller_sa        = var.admissioncontroller_sa
-        backgroundcontroller_sa       = var.backgroundcontroller_sa
-        cleanupcontroller_sa          = var.cleanupcontroller_sa
-        reportscontroller_sa          = var.reportscontroller_sa
+        is_aws                             = var.is_aws
+        is_gcp                             = var.is_gcp
+        excluded_namespaces                = var.excluded_namespaces
+        admissioncontroller_replicas       = var.admission_controller_replicas
+        backgroundcontroller_replicas      = var.backgroundcontroller_replicas
+        cleanupcontroller_replicas         = var.cleanupcontroller_replicas
+        reportscontroller_replicas         = var.reportscontroller_replicas
+        admissioncontroller_sa             = var.admissioncontroller_sa
+        backgroundcontroller_sa            = var.backgroundcontroller_sa
+        cleanupcontroller_sa               = var.cleanupcontroller_sa
+        reportscontroller_sa               = var.reportscontroller_sa
+        node_affinity                      = var.node_affinity
+        admissioncontroller_node_affinity  = var.admissioncontroller_node_affinity
+        backgroundcontroller_node_affinity = var.backgroundcontroller_node_affinity
+        cleanupcontroller_node_affinity    = var.cleanupcontroller_node_affinity
+        reportscontroller_node_affinity    = var.reportscontroller_node_affinity
+        tolerations                        = var.tolerations
+        admissioncontroller_tolerations    = var.admissioncontroller_tolerations
+        backgroundcontroller_tolerations   = var.backgroundcontroller_tolerations
+        cleanupcontroller_tolerations      = var.cleanupcontroller_tolerations
+        reportscontroller_tolerations      = var.reportscontroller_tolerations
       })
     ],
     var.helm_additional_values

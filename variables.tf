@@ -42,6 +42,106 @@ variable "helm_additional_values" {
   default     = []
 }
 
+variable "node_affinity" {
+  description = "Node affinity settings for Kyverno deployments. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`. This variable configures the node affinity for the `admissioncontroller`, `backgroundcontroller`, `cleanupcontroller` and `reportscontroller`. If defined, the value of this variable will be completely overwritten by the `*_node_affinity` configuration specific for each component."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "admissioncontroller_node_affinity" {
+  description = "Node affinity settings for `admissioncontroller` deployment. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`. If not null, the `node_affinity` value will be completely overwritten for the `admissioncontroller` deployment."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "backgroundcontroller_node_affinity" {
+  description = "Node affinity settings for backgroundcontroller deployment. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`. If not null, the `node_affinity` value will be completely overwritten for the `backgroundcontroller` deployment."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "cleanupcontroller_node_affinity" {
+  description = "Node affinity settings for cleanupcontroller deployment. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`. If not null, the `node_affinity` value will be completely overwritten for the `cleanupcontroller` deployment."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "reportscontroller_node_affinity" {
+  description = "Node affinity settings for reportscontroller deployment. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`. If not null, the `node_affinity` value will be completely overwritten for the `reportscontroller` deployment."
+  type = map(object({
+    key    = string
+    values = list(string)
+  }))
+  default = null
+}
+
+variable "tolerations" {
+  description = "Tolerations for Kyverno deployments. If not null it will populate the values file global tolerations."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
+variable "admissioncontroller_tolerations" {
+  description = "Tolerations for admissioncontroller deployment. If not null will populate the values file admissioncontroller tolerations."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
+variable "backgroundcontroller_tolerations" {
+  description = "Tolerations for backgroundcontroller deployment. If not null will populate the values file backgroundcontroller tolerations."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
+variable "cleanupcontroller_tolerations" {
+  description = "Tolerations for cleanupcontroller deployment. If not null will populate the values file cleanupcontroller tolerations."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
+variable "reportscontroller_tolerations" {
+  description = "Tolerations for reportscontroller deployment. If not null will populate the values file reportscontroller tolerations."
+  type = list(object({
+    key      = string
+    operator = string
+    value    = string
+    effect   = string
+  }))
+  default = []
+}
+
 variable "excluded_namespaces" {
   type        = list(string)
   description = "The list of namespaces to exclude from the Kyverno policies."
@@ -65,6 +165,9 @@ variable "admission_controller_replicas" {
   type        = number
   default     = 3
 }
+
+# Configuration for HA deployment of Kyverno
+# https://kyverno.io/docs/installation/methods/#high-availability-installation
 
 variable "backgroundcontroller_replicas" {
   description = "The number of replicas for the Kyverno background controller."
