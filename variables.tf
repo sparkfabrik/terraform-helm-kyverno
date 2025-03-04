@@ -52,7 +52,7 @@ variable "node_affinity" {
 }
 
 variable "admissioncontroller_node_affinity" {
-  description = "Node affinity settings for admissioncontroller pods. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`."
+  description = "Node affinity settings for `admissioncontroller` deployment. Use weight as map key; operator is `In` and policy is `preferredDuringSchedulingIgnoredDuringExecution`. If not null, the `node_affinity` value will be completely overwritten for the `admissioncontroller` deployment."
   type = map(object({
     key    = string
     values = list(string)
