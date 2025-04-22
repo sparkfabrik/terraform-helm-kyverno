@@ -160,14 +160,13 @@ variable "is_gcp" {
   default     = false
 }
 
+# Configuration for HA deployment of Kyverno
+# https://kyverno.io/docs/installation/methods/#high-availability-installation
 variable "admission_controller_replicas" {
   description = "The number of replicas for the Kyverno admission controller."
   type        = number
   default     = 3
 }
-
-# Configuration for HA deployment of Kyverno
-# https://kyverno.io/docs/installation/methods/#high-availability-installation
 
 variable "backgroundcontroller_replicas" {
   description = "The number of replicas for the Kyverno background controller."
