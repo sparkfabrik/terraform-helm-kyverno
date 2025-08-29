@@ -8,6 +8,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-08-29
+
+- Update the Helm chart to version 3.5.1
 - Fix the link in values file and move comment for HA in `variables.tf`.
 
 ## [0.2.0] - 2025-03-04
