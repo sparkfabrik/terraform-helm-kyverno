@@ -33,7 +33,7 @@ variable "helm_release_name" {
 variable "helm_chart_version" {
   description = "The version of kyverno Helm chart."
   type        = string
-  default     = "3.3.7"
+  default     = "3.5.1"
 }
 
 variable "helm_additional_values" {
